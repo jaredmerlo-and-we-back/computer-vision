@@ -1,13 +1,7 @@
 # computer-vision
 
-A simple notebook that trains a CNN to classify colored dots as red or blue.
+A collection of computer vision projects.
 
-## Quick start
+## Projects
 
-```bash
-pip install -r requirements.txt
-jupyter notebook dot_classifier.ipynb
-```
-
-Then run the cells top-to-bottom. The notebook generates its own synthetic
-training data, trains the model, and tests it — no external datasets needed.
+- **[Colored Dot Classification](colored-dot-classification/)** — A simple CNN that classifies red vs. blue dots, implemented as a self-contained Jupyter notebook.
