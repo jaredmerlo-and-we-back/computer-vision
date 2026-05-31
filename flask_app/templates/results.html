@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Results - Yoga Pose Similarity Search</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 24px; }
+      a { color: #0b66c3; }
+      .row { display: flex; gap: 18px; align-items: flex-start; }
+      .query { width: 260px; }
+      .query img { width: 100%; border-radius: 8px; border: 1px solid #ddd; }
+      .hits { flex: 1; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+      .hit { border: 1px solid #ddd; border-radius: 8px; padding: 8px; }
+      .hit img { width: 100%; border-radius: 6px; border: 1px solid #eee; }
+      .small { font-size: 13px; color: #444; }
+      .missing { background: #fafafa; padding: 10px; border-radius: 6px; border: 1px dashed #bbb; }
+    </style>
+  </head>
+  <body>
+    <p><a href="/">← New search</a></p>
+    <h1>Top {{ top_n }} similar images</h1>
+
+    <div class="row">
+      <div class="query">
+        <h3>Query image</h3>
+        <img src="/uploads/{{ upload_name }}" alt="Query" />
+      </div>
+
+      <div class="hits">
+        <h3>Results</h3>
+        <div class="grid">
+          {% for h in hits %}
+            <div class="hit">
+              {% if h.result_static_name %}
+                <img src="/results/{{ h.result_static_name }}" alt="Result" />
+              {% else %}
+                <div class="missing">Image file not found on disk (cannot display).<br/><span class="small">{{ h.image_path }}</span></div>
+              {% endif %}
+              <div><b>{{ h.label }}</b></div>
+              <div class="small">score: {{ h.score }}</div>
+              <div class="small">{{ h.image_path }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

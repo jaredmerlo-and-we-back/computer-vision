@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Yoga Pose Similarity Search</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 24px; }
+      .card { max-width: 720px; padding: 16px; border: 1px solid #ddd; border-radius: 8px; }
+      label { display: block; margin-top: 12px; font-weight: 600; }
+      input[type="number"], input[type="file"] { margin-top: 6px; }
+      .meta { color: #444; font-size: 14px; margin-top: 12px; }
+      .error { background: #ffe8e8; border: 1px solid #ffb3b3; padding: 10px; border-radius: 6px; margin-bottom: 12px; }
+      button { margin-top: 16px; padding: 10px 14px; }
+    </style>
+  </head>
+  <body>
+    <h1>Yoga Pose Similarity Search</h1>
+
+    <div class="card">
+      {% if error %}
+        <div class="error"><b>Error:</b> {{ error }}</div>
+      {% endif %}
+
+      <form action="/search" method="post" enctype="multipart/form-data">
+        <label>Upload a yoga pose image</label>
+        <input name="image" type="file" accept="image/*" required />
+
+        <label>Number of nearest images (N)</label>
+        <input name="top_n" type="number" min="1" max="50" value="{{ top_n_default }}" />
+
+        <button type="submit">Search</button>
+      </form>
+
+      <div class="meta">
+        <div><b>Device:</b> {{ device }}</div>
+        <div><b>Milvus DB:</b> {{ db_path }}</div>
+        <div><b>Collection:</b> {{ collection }}</div>
+      </div>
+
+      <p class="meta">
+        Notes:
+        <ul>
+          <li>This app expects you already built the Milvus DB from the Colab notebook.</li>
+          <li>In Colab, run the app and expose port 5000 via ngrok.</li>
+        </ul>
+      </p>
+    </div>
+  </body>
+</html>
